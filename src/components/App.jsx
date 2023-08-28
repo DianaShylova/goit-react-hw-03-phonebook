@@ -29,10 +29,14 @@ export class App extends Component {
       contacts: [...prevState.contacts, { id: nanoid(), name, number }],
     }));
   };
-  componentDidUpdate() {
-    window.localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-  }
   
+  componentDidUpdate(_, prevState) {
+    const { contacts } = this.state
+    if (prevState.contacts !== contacts){
+      window.localStorage.setItem("contacts", JSON.stringify(contacts));
+    }
+  }
+
   applyFilter = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
