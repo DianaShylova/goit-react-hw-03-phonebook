@@ -27,12 +27,12 @@ export class App extends Component {
     }
     this.setState(prevState => ({
       contacts: [...prevState.contacts, { id: nanoid(), name, number }],
-    }), () => {
-      
-      window.localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-    } );
+    }));
   };
-
+  componentDidUpdate() {
+    window.localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+  }
+  
   applyFilter = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
